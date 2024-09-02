@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:jwt_auth/provider.dart';
-import 'package:jwt_auth/warpper.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jwt_auth/bloc/auth/login_bloc.dart';
+import 'package:jwt_auth/pages/warpper.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (context) => jwtauth_provider(),
-    child: const MyApp(),
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -15,11 +12,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'JWT APP',
-      theme: ThemeData(useMaterial3: true),
-      home: Wrapper(),
+    return BlocProvider(
+      create: (_) => LoginBloc(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'JWT APP',
+        theme: ThemeData(useMaterial3: true),
+        home: const Wrapper(),
+      ),
     );
   }
 }
